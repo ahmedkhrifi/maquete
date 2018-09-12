@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>json ajax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+            <table class="table" id="map">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">label</th>
+                        <th scope="col">description</th>
+                        <th scope="col">image</th>
+                        <th scope="col">services</th>
+                      </tr>
+                    </thead>
+                   
+                  </table>
+                  
+
+
+    </div>
+    
+    <script>
+            $(document).ready(function(){
+          
+              $.getJSON("https://cors.io/?https://api.myglamapp.pl/api/categories?language=EN",function(data){
+          
+                  var map_data='';
+                 
+                  
+                    for (var i=0; i <data.data.length; i++) {
+                        map_data+='<tr>';
+                          map_data+='<td>'+data.data[i].id+'</td>';
+                          map_data+='<td>'+data.data[i].label+'</td>';
+                          map_data+='<td>'+data.data[i].description+'</td>';
+                          map_data+='<td><img src="http://'+data.data[i].imagePath+'"</img></td>';
+                          map_data+='<td>';
+                          for (var j=0; j <data.data[i].Services.length; j++) {
+                            map_data+=data.data[i].Services[j].label_service;
+                            map_data+='<br>';
+                            map_data+=data.data[i].Services[j].description_service;
+                           
+                          }
+                          map_data+='<td>';
+                          map_data+='</tr>';
+}
+                 $('#map').append(map_data);
+              }
+              );
+            }
+            );
+             </script>
+</body>
+</html>
